@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "117993267704",
+    "project_id": "app-placeme",
+    "storage_bucket": "app-placeme.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:117993267704:android:a1b2b8fbaf83659cbc760d",
+        "android_client_info": {
+          "package_name": "com.placeme.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDOq26zea7n3G788ErS6_ws3Any1jug2WM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
