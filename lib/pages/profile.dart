@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import 'package:placeme/appbar/appbar.dart';
@@ -62,7 +63,8 @@ class _PlaceMeProfilePageState extends State<PlaceMeProfilePage> {
             int phoneNumber = userProfile.phoneNumber;
             int departmentID = userProfile.departmentID;
             int genderID = userProfile.genderID;
-            String? photoURL = userProfile.photoURL;
+            String photoURL = userProfile.photoURL;
+            bool isAdmin = userProfile.isAdmin;
 
             return Scaffold(
               appBar: PlaceMeAppbar(title: username),
@@ -88,21 +90,21 @@ class _PlaceMeProfilePageState extends State<PlaceMeProfilePage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Row(
-                            children: [
-                              Text(fullName, style: AppStyles.textStyle.copyWith(fontSize: 22, fontWeight: FontWeight.w500)),
-                              const SizedBox(width: 8),
-                              Text(getGender(genderID), style: AppStyles.textStyle.copyWith(fontSize: 12, fontWeight: FontWeight.w400, color: AppStyles.thistleColor.withOpacity(0.6))),
-
-                            ],
+                          Text(fullName, style: AppStyles.textStyle.copyWith(fontSize: 22, fontWeight: FontWeight.w500)),
+                          Text('${getDepartment(departmentID)}, ${getGender(genderID)}', style: AppStyles.textStyle.copyWith(fontSize: 12, fontWeight: FontWeight.w400, color: AppStyles.thistleColor.withOpacity(0.8))),
+                          const SizedBox(height: 4),
+                          Text('Phone: $phoneNumber', style: AppStyles.textStyle.copyWith(fontSize: 16, fontWeight: FontWeight.w500)),
+                          Visibility(
+                              visible: !isAdmin,
+                              child: Column(
+                                children: [
+                                  const SizedBox(height: 4),
+                                  Text('Register Number: $registerNumber', style: AppStyles.textStyle.copyWith(fontSize: 16, fontWeight: FontWeight.w500)),
+                                  const SizedBox(height: 4),
+                                  Text('Date of birth: ${DateFormat('dd MMMM yyyy').format(dob)}', style: AppStyles.textStyle.copyWith(fontSize: 16, fontWeight: FontWeight.w500)),
+                                ],
+                              )
                           ),
-                          Text(getDepartment(departmentID), style: AppStyles.textStyle.copyWith(fontSize: 12, fontWeight: FontWeight.w400, color: AppStyles.thistleColor.withOpacity(0.6))),
-                          const SizedBox(height: 4),
-                          Text('Phone: $phoneNumber', style: AppStyles.textStyle.copyWith(fontSize: 22, fontWeight: FontWeight.w500)),
-                          const SizedBox(height: 4),
-                          Text('Register Number: $registerNumber', style: AppStyles.textStyle.copyWith(fontSize: 22, fontWeight: FontWeight.w500)),
-                          const SizedBox(height: 4),
-                          Text('Date of birth: $dob', style: AppStyles.textStyle.copyWith(fontSize: 22, fontWeight: FontWeight.w500)),
                         ],
                       ),
                     ),
@@ -112,25 +114,25 @@ class _PlaceMeProfilePageState extends State<PlaceMeProfilePage> {
                         Expanded(child: OutlinedButton(
                           onPressed: navigateToEditProfile,
                           style: AppStyles.buttonStyle.copyWith(
-                              side: WidgetStatePropertyAll(BorderSide(color: AppStyles.thistleColor, width: 1.5)),
+                              side: WidgetStatePropertyAll(BorderSide(color: AppStyles.thistleColor2, width: 1.5)),
                               elevation: const WidgetStatePropertyAll(0),
                               backgroundColor: const WidgetStatePropertyAll(Colors.white),
                               padding: const WidgetStatePropertyAll(EdgeInsets.symmetric(vertical: 14)),
                               shape: WidgetStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)))
                           ),
-                          child: Text('Edit Profile', style: AppStyles.textStyle.copyWith(fontSize: 16, fontWeight: FontWeight.w500, color: AppStyles.thistleColor)),
+                          child: Text('Edit Profile', style: AppStyles.textStyle.copyWith(fontSize: 16, fontWeight: FontWeight.w500, color: AppStyles.thistleColor2)),
                         )),
                         const SizedBox(width: 8),
                         Expanded(child: OutlinedButton(
                           onPressed: navigateToFriendsPage,
                           style: AppStyles.buttonStyle.copyWith(
-                              side: WidgetStatePropertyAll(BorderSide(color: AppStyles.thistleColor, width: 1.5)),
+                              side: WidgetStatePropertyAll(BorderSide(color: AppStyles.thistleColor2, width: 1.5)),
                               elevation: const WidgetStatePropertyAll(0),
                               backgroundColor: const WidgetStatePropertyAll(Colors.white),
                               padding: const WidgetStatePropertyAll(EdgeInsets.symmetric(vertical: 14)),
                               shape: WidgetStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)))
                           ),
-                          child: Text('Find Friends', style: AppStyles.textStyle.copyWith(fontSize: 16, fontWeight: FontWeight.w500, color: AppStyles.thistleColor)),
+                          child: Text('Find Friends', style: AppStyles.textStyle.copyWith(fontSize: 16, fontWeight: FontWeight.w500, color: AppStyles.thistleColor2)),
                         ))
                       ],
                     )

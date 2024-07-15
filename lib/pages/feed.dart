@@ -208,6 +208,7 @@ class _PlaceMeFeedPageState extends State<PlaceMeFeedPage> {
   @override
   void dispose() {
     _scrollController.dispose();
+    _firestore.clearPersistence();
     super.dispose();
   }
 

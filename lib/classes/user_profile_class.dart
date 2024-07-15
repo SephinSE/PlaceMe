@@ -15,7 +15,7 @@ class UserProfileClass {
 
   final String username;
   final bool isAdmin;
-  final String? photoURL;
+  final String photoURL;
   final int registerNumber;
   final int phoneNumber;
   final String fullName;

@@ -61,9 +61,10 @@ class ApplicationState extends ChangeNotifier {
           final gender = getGender(genderID);
           final registerNumber = userData['registerNumber'];
           final phoneNumber = userData['phoneNumber'];
-          final dob = userData['dateOfBirth'];
+          final dobTimestamp = userData['dateOfBirth'] as Timestamp;
+          final dob = dobTimestamp.toDate();
 
-          if (username != null && registerNumber != null && phoneNumber != null && fullName != null && departmentID != null && genderID != null && dob != null && isAdmin != null && photoURL != null) {
+
             updateUserProfileClass(
               UserProfileClass(
                 username: username,
@@ -80,7 +81,7 @@ class ApplicationState extends ChangeNotifier {
               )
             );
             notifyListeners();
-          }
+
         });
       } else {
         _loggedIn = false;
@@ -126,9 +127,9 @@ class ApplicationState extends ChangeNotifier {
         'registerNumber' : registerNumber,
         'genderID' : genderID,
         'phoneNumber' : phoneNumber,
-        'dateOfBirth' : dob,
-        'photoURL' : 'https://firebasestorage.googleapis.com/v0/b/app-placeme.appspot.com/o/displayPictures%2Fdefault.png?alt=media&token=6aa3c980-4e1d-40eb-b954-ca4d356e00a8',
-        'timestamp' : DateTime.now(),
+        'dateOfBirth' : Timestamp.fromDate(dob),
+        'photoURL' : 'https://firebasestorage.googleapis.com/v0/b/app-placeme.appspot.com/o/profile_pictures%2Fdefault.png?alt=media&token=0c01e608-9ece-4a70-9614-2de91eb67473',
+        'timestamp' : DateTime.now().millisecondsSinceEpoch,
         //'bio' : '',
       };
       await credential.user!.updateDisplayName(fullName);
@@ -165,10 +166,10 @@ class ApplicationState extends ChangeNotifier {
           .collection('users')
           .doc(user.uid)
           .set(<String, String>{
-        'photoURL' : imageUrl
+            'photoURL' : imageUrl
       }, SetOptions(merge: true));
     }
-    notifyListeners(); // Now called after update is complete
+    notifyListeners();
   }
 
 }
